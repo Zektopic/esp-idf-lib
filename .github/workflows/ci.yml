@@ -1,5 +1,8 @@
 ---
 name: Main CI process
+permissions:
+  contents: read
+
 on:
   workflow_dispatch:
   pull_request:
@@ -30,13 +33,13 @@ jobs:
     steps:
       - id: setup_python
         name: Setup Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v7
         with:
           python-version: "3.10"
 
       - id: checkout
         name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v7
         with:
           fetch-depth: "0"
 
@@ -57,13 +60,13 @@ jobs:
     steps:
       - id: setup_python
         name: Setup Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v7
         with:
           python-version: "3.10"
 
       - id: checkout
         name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v7
 
       - id: requirements
         name: Install devtool requirements
@@ -84,7 +87,7 @@ jobs:
     steps:
       - id: checkout
         name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v7
 
       - id: dependencies
         name: Install dependencies
@@ -152,7 +155,7 @@ jobs:
     steps:
       - id: checkout
         name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v7
         with:
           submodules: recursive
 
@@ -290,7 +293,7 @@ jobs:
     steps:
       - id: checkout
         name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v7
 
       - id: setup_ruby
         name: Setup Ruby
@@ -308,7 +311,7 @@ jobs:
 
       - id: setup_python
         name: Setup Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v7
         with:
           python-version: "3.10"
 
@@ -366,7 +369,7 @@ jobs:
           echo "__PROJECT_TOOLCHAIN_VERSION=${__PROJECT_TOOLCHAIN_VERSION}" >> ${GITHUB_ENV}
 
       - name: Checkout the SDK
-        uses: actions/checkout@v3
+        uses: actions/checkout@v7
         with:
           repository: espressif/ESP8266_RTOS_SDK
           path: idf
@@ -381,7 +384,7 @@ jobs:
       - id: cache-idf-tools
         name: Cache toolchain
         if: ${{ matrix.branch != 'master' }}
-        uses: actions/cache@v3
+        uses: actions/cache@v6
         with:
           path: ${{ steps.set_env.outputs.PROJECT_TOOLCHAIN_DIR }}
           key: ${{ runner.os }}-${{ matrix.branch }}-esp8266-cache-tools
